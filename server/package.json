@@ -1,0 +1,22 @@
+{
+  "name": "tinyful-api",
+  "version": "1.0.0",
+  "description": "Tinyful API Proxy for Eliza Cloud",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.71.2",
+    "@google/generative-ai": "^0.24.1",
+    "axios": "^1.6.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "uuid": "^13.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

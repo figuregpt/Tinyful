@@ -1,19 +1,37 @@
-const tintColorLight = '#2f95dc';
-const tintColorDark = '#fff';
-
-export default {
+// Duolingo-inspired color palette
+export const Colors = {
   light: {
-    text: '#000',
-    background: '#fff',
-    tint: tintColorLight,
-    tabIconDefault: '#ccc',
-    tabIconSelected: tintColorLight,
+    text: '#3C3C3C',
+    textSecondary: '#777777',
+    background: '#FFFFFF',
+    surface: '#F7F7F7',
+    tint: '#58CC02',
+    tabIconDefault: '#777777',
+    tabIconSelected: '#58CC02',
+    primary: '#58CC02',
+    primaryDark: '#4CAD00',
+    secondary: '#1CB0F6',
+    secondaryDark: '#1899D6',
+    warning: '#FF9600',
+    error: '#FF4B4B',
+    success: '#58CC02',
+    border: '#E5E5E5',
   },
   dark: {
-    text: '#fff',
-    background: '#000',
-    tint: tintColorDark,
-    tabIconDefault: '#ccc',
-    tabIconSelected: tintColorDark,
+    text: '#FFFFFF',
+    textSecondary: '#A0A0A0',
+    background: '#1A1A1A',
+    surface: '#2A2A2A',
+    tint: '#58CC02',
+    tabIconDefault: '#A0A0A0',
+    tabIconSelected: '#58CC02',
+    primary: '#58CC02',
+    primaryDark: '#4CAD00',
+    secondary: '#1CB0F6',
+    secondaryDark: '#1899D6',
+    warning: '#FF9600',
+    error: '#FF4B4B',
+    success: '#58CC02',
+    border: '#3A3A3A',
   },
 };

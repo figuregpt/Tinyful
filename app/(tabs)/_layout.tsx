@@ -1,57 +1,71 @@
+import { flatColors } from '@/theme';
+import { Ionicons } from '@expo/vector-icons';
+import { Tabs } from 'expo-router';
 import React from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
-
-import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
-
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
+import { Platform, useWindowDimensions } from 'react-native';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const { width } = useWindowDimensions();
+  const isWeb = Platform.OS === 'web';
+  const isDesktop = isWeb && width >= 768;
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
-      }}>
+        tabBarActiveTintColor: flatColors.primary,
+        tabBarInactiveTintColor: flatColors.textSecondary,
+        tabBarStyle: isDesktop ? { display: 'none' } : {
+          backgroundColor: '#FFFFFF',
+          borderTopColor: flatColors.border,
+          borderTopWidth: 1,
+          paddingTop: 6,
+          paddingBottom: 6,
+          height: 60,
+        },
+        tabBarLabelStyle: {
+          fontSize: 11,
+          fontWeight: '600',
+        },
+        headerStyle: {
+          backgroundColor: '#FFFFFF',
+        },
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          color: flatColors.textPrimary,
+          fontSize: 16,
+        },
+        headerShadowVisible: false,
+        headerShown: !isDesktop,
+      }}
+    >
       <Tabs.Screen
-        name="index"
+        name="chat"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
+          title: 'Chat',
+          headerTitle: 'Tino',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="chatbubble-ellipses" size={size - 2} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="plans"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Plans',
+          headerTitle: 'My Plans',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="list" size={size - 2} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+          headerTitle: 'Profile',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person" size={size - 2} color={color} />
+          ),
         }}
       />
     </Tabs>
