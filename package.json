@@ -8,9 +8,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "server": "cd server && node index.js",
-    "eliza": "cd tinyful-eliza && ANTHROPIC_SMALL_MODEL=claude-sonnet-4-20250514 ANTHROPIC_LARGE_MODEL=claude-sonnet-4-20250514 elizaos start",
-    "dev": "concurrently -n \"server,web\" -c \"blue,magenta\" \"npm run server\" \"npm run web\"",
-    "dev:eliza": "concurrently -n \"eliza,server,web\" -c \"green,blue,magenta\" \"npm run eliza\" \"npm run server\" \"npm run web\""
+    "dev": "concurrently -n \"server,web\" -c \"blue,magenta\" \"npm run server\" \"npm run web\""
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

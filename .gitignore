@@ -33,7 +33,6 @@ yarn-error.*
 # local env files
 .env*.local
 .env
-tinyful-eliza/.env
 
 # typescript
 *.tsbuildinfo
@@ -42,9 +41,7 @@ tinyful-eliza/.env
 /ios
 /android
 
-# ElizaOS build artifacts
-.eliza/
-tinyful-eliza/.eliza/
+# Database files
 *.db
 *.db-journal
 

@@ -1,6 +1,6 @@
 # Tinyful - AI Goal Planning App
 
-A Duolingo-themed goal planning application powered by ElizaOS and Claude API. Break down your goals into actionable steps with the help of Tino, your friendly AI planning assistant.
+A Duolingo-themed goal planning application powered by Google Gemini. Break down your goals into actionable steps with the help of Tino, your friendly AI planning assistant.
 
 ## Features
 
@@ -12,22 +12,21 @@ A Duolingo-themed goal planning application powered by ElizaOS and Claude API. B
 
 ## Tech Stack
 
-- **Frontend**: Expo SDK 52 + React Native + TypeScript
+- **Frontend**: Expo SDK 54 + React Native + TypeScript
 - **Routing**: Expo Router (file-based routing)
 - **Styling**: NativeWind (Tailwind CSS for React Native)
-- **State Management**: Zustand + React Query
-- **Backend**: Supabase (Auth + PostgreSQL + Edge Functions)
-- **AI**: ElizaOS on Eliza Cloud
+- **State Management**: Zustand
+- **Backend**: Supabase (Auth + PostgreSQL)
+- **AI**: Google Gemini 2.5 Flash
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ or Bun
+- Node.js 18+
 - Expo CLI
 - Supabase account
-- Eliza Cloud account
-- Railway account (for backend)
+- Google AI API key (Gemini)
 
 ### Installation
 
@@ -44,39 +43,36 @@ npm install
    - Enable Email Auth in Authentication settings
    - Copy your project URL and anon key
 
-3. Set up Eliza Cloud:
-   - Go to https://elizacloud.ai and create an account
-   - Create a new agent using Agent Creator
-   - Copy your Agent ID from the URL (e.g., `b959d549-73b6-4853-8e3c-8e323b54048c`)
-   - Get your API key from Dashboard → API Keys
+3. Create `.env.local` file:
 
-4. Deploy Backend to Railway:
+```env
+EXPO_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
+EXPO_PUBLIC_SUPABASE_ANON_KEY=eyJhbGc...
+EXPO_PUBLIC_API_URL=http://localhost:3002
+GEMINI_API_KEY=your-gemini-api-key
+```
+
+4. Install server dependencies:
 
 ```bash
 cd server
 npm install
 ```
 
-   - Go to https://railway.app and create new project
-   - Connect your GitHub repo or deploy from local
-   - Set environment variables in Railway:
-     - `ELIZA_API_URL=https://elizacloud.ai/api/v1`
-     - `ELIZA_API_KEY=ek_live_xxxxxxxxxxxx`
-     - `ELIZA_AGENT_ID=your-agent-id`
-   - Railway will give you a URL like: `https://tinyful-api-production.up.railway.app`
-
-5. Create `.env.local` for Expo app:
-
-```env
-EXPO_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
-EXPO_PUBLIC_SUPABASE_ANON_KEY=eyJhbGc...
-EXPO_PUBLIC_API_URL=https://tinyful-api-production.up.railway.app
-```
-
-6. Start the development server:
+5. Start the development server:
 
 ```bash
+# Terminal 1: Start the backend server
+npm run server
+
+# Terminal 2: Start Expo
 npm start
+```
+
+Or run both together:
+
+```bash
+npm run dev
 ```
 
 ### Running on Different Platforms
@@ -99,7 +95,7 @@ tinyful/
 ├── app/                    # Expo Router pages
 │   ├── (auth)/            # Auth screens (login, register)
 │   ├── (tabs)/            # Main tab navigation
-│   │   ├── chat.tsx       # ElizaOS chat interface
+│   │   ├── chat.tsx       # AI chat interface
 │   │   ├── plans.tsx      # Plans list
 │   │   └── profile.tsx    # User profile
 │   ├── plan/[id].tsx      # Plan detail view
@@ -110,11 +106,11 @@ tinyful/
 │   └── ui/                # Base UI components
 ├── lib/
 │   ├── supabase.ts        # Supabase client
-│   ├── eliza.ts           # ElizaOS API client
+│   ├── eliza.ts           # AI API client
 │   ├── api/               # API helper functions
 │   └── stores/            # Zustand stores
-├── eliza/                 # ElizaOS character config
-│   └── character.ts
+├── server/                # Backend server (Gemini proxy)
+│   └── index.js
 └── theme/                 # Theme tokens
 ```
 
@@ -127,14 +123,17 @@ See `supabase/schema.sql` for the complete database schema including:
 - `chat_sessions` - Chat conversation sessions
 - `messages` - Chat messages history
 
-## ElizaOS Character
+## AI Assistant (Tino)
 
-The AI assistant "Tino" is configured in `eliza/character.ts`. Key features:
+Tino is the AI planning assistant with a Duolingo-inspired personality:
 
-- Duolingo-inspired personality (encouraging, supportive)
-- Structured question/answer flow for gathering goal details
-- Generates plans in JSON format for easy parsing
-- Uses Claude 3.5 Sonnet for intelligent responses
+- Friendly and encouraging tone
+- Asks clarifying questions one at a time
+- Provides multiple choice options for easy interaction
+- Generates detailed, actionable plans with specific steps
+- Celebrates progress and keeps users motivated
+
+The AI logic is implemented in `server/index.js` using Google Gemini 2.5 Flash.
 
 ## Contributing
 

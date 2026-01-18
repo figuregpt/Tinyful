@@ -1,1 +1,0 @@
-export { character } from './character';
